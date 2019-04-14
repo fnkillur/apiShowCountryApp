@@ -17,7 +17,7 @@ router.get('/countries', function (req, res) {
     ]).then(function (values) {
         console.log(req.query.count);
         let countries = [];
-        Object.keys(values[0]).slice(0, req.query.count).forEach(code => {
+        Object.keys(values[0]).forEach(code => {
             countries.push({
                 code,
                 continent: values[0][code],
