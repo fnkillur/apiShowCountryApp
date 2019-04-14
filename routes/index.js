@@ -8,14 +8,16 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/countries', function (req, res) {
+
     Promise.all([
         request({url: 'http://country.io/continent.json', json: true}),
         request({url: 'http://country.io/names.json', json: true}),
         request({url: 'http://country.io/capital.json', json: true}),
         request({url: 'http://country.io/phone.json', json: true})
     ]).then(function (values) {
+        console.log(req.query.count);
         let countries = [];
-        Object.keys(values[0]).forEach(code => {
+        Object.keys(values[0]).slice(0, req.query.count).forEach(code => {
             countries.push({
                 code,
                 continent: values[0][code],
